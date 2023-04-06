@@ -13,9 +13,15 @@ pipeline{
 
             }
         }
-        stage('apache'){
+        stage('Artifactory configuration'){
             steps{
-                sh 'sudo apt install apache2 -y'
+                rtMavenDeployer (
+                    id: "MAVEN_DEPLOYER",
+                    serverId: "JFROG_APRIL",
+                    releaseRepo: 'dev-libs-release-local',
+                    snapshotRepo: 'dev-libs-snapshot-local'
+                )
+            
             }
         }
     }
